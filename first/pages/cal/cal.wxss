@@ -1,0 +1,4 @@
+.titleview{
+    display: 12;
+    flex-direction: row;
+}

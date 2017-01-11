@@ -1,0 +1,12 @@
+Page({
+    data:{
+        name:"wmh",
+        age:12
+    },
+    clickbtn:function(){
+        this.setData({
+            name:"huagu",
+            age:4
+        })
+    }
+})

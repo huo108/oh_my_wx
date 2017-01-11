@@ -1,0 +1,5 @@
+<view class="titleview">
+    <text>{{name}}:</text>
+    <text>{{age}}</text>
+    <button bindtap="clickbtn">click me</button>
+</view>
