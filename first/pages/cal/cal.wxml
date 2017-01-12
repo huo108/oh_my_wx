@@ -1,5 +1,49 @@
 <view class="titleview">
-    <text>{{name}}:</text>
-    <text>{{age}}</text>
+<!---------------------------------------------------数据绑定------------------------------------------------------------------->
+    <!--1、内容绑定-->
+    <text>{{name}}:{{age}}</text>
+    <!--2、组件属性(需要在双引号之内)-->
+    <view id="item-{{id}}"></view>
+    <!--3、控制属性(需要在双引号之内)-->
+    <view wx:if="{{condit}}"></view>
+    <!--4、关键字(需要在双引号之内)-->
+    <checkbox checked="{{true}}"></checkbox>
+    <!--5、运算-->
+    <view hidden="{{flag?true:false}}">三元运算</view>
+    <view>算数运算:{{operA+operB}}+{{operC}}+d</view>
+    <view wx:if="{{size>5}}">逻辑判断</view>
+    <view>{{"字符串运算:"+name}}</view>
+    <view>{{obj.text}}{{name}}</view>
+    <!--6、组合-->
+    <view wx:for="{{['lily','jack','chen',name]}}">数组：{{item}}</view>
+    <template name="combline">
+        <view>far:{{far}} && bar:{{bar}}</view>
+    </template>
+    <template is="combline" data="{{far:fa,bar:ba}}"></template>
+
+<!-----------------------------------------------------条件选择---------------------------------------------------------------------->
+    <!--wx:if-->
+    <view wx:if="{{ch=='fork'}}">FORK</view>
+    <view wx:elif="{{ch=='jifen'}}">JIFEN</view>
+    <view wx:else>FUCK</view>
+    <!--block wx:if-->
+    <block wx:if="{{condit}}">
+        <view>因为 wx:if 是一个控制属性，需要将它添加到一个标签上。但是如果我们想一次性判断多个组件标签，</view>
+        <view>我们可以使用一个 block 标签将多个组件包装起来，并在上边使用 wx:if 控制属性。</view>
+        <view>注意:block 并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性。</view>
+    </block>
+
+<!---------------------------------------------------事件-------------------------------------------------------------------------->
     <button bindtap="clickbtn">click me</button>
+    <!--循环遍历-->
+    <view wx:for="{{array}}">{{item}}</view>
+    
+
+
+
+    <!--模板-->
+    <template name="userInfo">
+        <view>FirstName:{{firstname}} && LastName:{{lastname}}</view>
+    </template>
+    <template is="userInfo" data="{{...userInfoA}}"></template><!--用扩展运算符 ... 来将一个对象展开-->
 </view>
