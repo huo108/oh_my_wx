@@ -2,3 +2,12 @@
     display: 12;
     flex-direction: row;
 }
+.btnclass{
+    width: 450rpx;
+}
+button{
+    background:#fff333
+}
+#view1{
+    display: 50;
+}

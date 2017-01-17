@@ -1,0 +1,3 @@
+<template name="ipritem">
+    <view>{{text}}</view>
+</template>

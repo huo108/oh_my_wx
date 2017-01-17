@@ -1,49 +1,117 @@
 <view class="titleview">
-<!---------------------------------------------------数据绑定------------------------------------------------------------------->
-    <!--1、内容绑定-->
-    <text>{{name}}:{{age}}</text>
-    <!--2、组件属性(需要在双引号之内)-->
-    <view id="item-{{id}}"></view>
-    <!--3、控制属性(需要在双引号之内)-->
-    <view wx:if="{{condit}}"></view>
-    <!--4、关键字(需要在双引号之内)-->
-    <checkbox checked="{{true}}"></checkbox>
-    <!--5、运算-->
-    <view hidden="{{flag?true:false}}">三元运算</view>
-    <view>算数运算:{{operA+operB}}+{{operC}}+d</view>
-    <view wx:if="{{size>5}}">逻辑判断</view>
-    <view>{{"字符串运算:"+name}}</view>
-    <view>{{obj.text}}{{name}}</view>
-    <!--6、组合-->
-    <view wx:for="{{['lily','jack','chen',name]}}">数组：{{item}}</view>
-    <template name="combline">
-        <view>far:{{far}} && bar:{{bar}}</view>
-    </template>
-    <template is="combline" data="{{far:fa,bar:ba}}"></template>
 
-<!-----------------------------------------------------条件选择---------------------------------------------------------------------->
-    <!--wx:if-->
-    <view wx:if="{{ch=='fork'}}">FORK</view>
-    <view wx:elif="{{ch=='jifen'}}">JIFEN</view>
-    <view wx:else>FUCK</view>
-    <!--block wx:if-->
-    <block wx:if="{{condit}}">
-        <view>因为 wx:if 是一个控制属性，需要将它添加到一个标签上。但是如果我们想一次性判断多个组件标签，</view>
-        <view>我们可以使用一个 block 标签将多个组件包装起来，并在上边使用 wx:if 控制属性。</view>
-        <view>注意:block 并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性。</view>
-    </block>
+  <!---------------------------------------------------数据绑定------------------------------------------------------------------------>
 
-<!---------------------------------------------------事件-------------------------------------------------------------------------->
-    <button bindtap="clickbtn">click me</button>
-    <!--循环遍历-->
-    <view wx:for="{{array}}">{{item}}</view>
-    
+  <!--1、内容绑定-->
+  <text>{{name}}:{{age}}</text>
 
+  <!--2、组件属性(需要在双引号之内)-->
+  <view id="item-{{id}}"></view>
 
+  <!--3、控制属性(需要在双引号之内)-->
+  <view wx:if="{{condit}}"></view>
 
-    <!--模板-->
-    <template name="userInfo">
-        <view>FirstName:{{firstname}} && LastName:{{lastname}}</view>
-    </template>
-    <template is="userInfo" data="{{...userInfoA}}"></template><!--用扩展运算符 ... 来将一个对象展开-->
+  <!--4、关键字(需要在双引号之内)-->
+  <checkbox checked="{{true}}"></checkbox>
+
+  <!--5、运算-->
+  <view hidden="{{flag?true:false}}">三元运算</view>
+  <view>算数运算:{{operA+operB}}+{{operC}}+d</view>
+  <view wx:if="{{size>5}}">逻辑判断</view>
+  <view>{{"字符串运算:"+name}}</view>
+  <view>{{obj.text}}{{name}}</view>
+
+  <!--6、组合-->
+  <view wx:for="{{['lily','jack','chen',name]}}" wx:key="*this">数组:{{item}}</view>
+  <template name="combline">
+    <view>far:{{far}} && bar:{{bar}}</view>
+  </template>
+  <template is="combline" data="{{far:fa,bar:ba}}"></template>
+
+  <!-----------------------------------------------------条件选择---------------------------------------------------------------------->
+
+  <!--wx:if-->
+  <view wx:if="{{ch=='fork'}}">FORK</view>
+  <view wx:elif="{{ch=='jifen'}}">JIFEN</view>
+  <view wx:else>FUCK</view>
+
+  <!--block wx:if-->
+  <block wx:if="{{condit}}">
+    <view>因为 wx:if 是一个控制属性，需要将它添加到一个标签上。但是如果我们想一次性判断多个组件标签，</view>
+    <view>我们可以使用一个 block 标签将多个组件包装起来，并在上边使用 wx:if 控制属性。</view>
+    <view>注意:block 并不是一个组件，它仅仅是一个包装元素，不会在页面中做任何渲染，只接受控制属性。</view>
+  </block>
+
+  <!---------------------------------------------------列表渲染-------------------------------------------------------------------------->
+
+  <!--1、wx:for-->
+
+  <!--数组的当前项的下标变量名默认为index，数组当前项的变量名默认为item-->
+  <view wx:for="{{arr}}" wx:key="message">
+    {{index}}:{{item.message}}
+  </view>
+
+  <!--wx:for-item 指定前元素变量名; wx:for-index 指定数组当前下标的变量名-->
+  <view wx:for="{{arr}}" wx:for-index="idx" wx:for-item="iem" wx:key="message">
+    {{idx}}:{{iem.message}}
+  </view>
+
+  <!--99乘法口诀表-->
+  <view wx:for="{{[1,2,3,4,5,6,7,8,9]}}" wx:key="*this" wx:for-item="i">
+    <view wx:for="{{[1,2,3,4,5,6,7,8,9]}}" wx:key="*this" wx:for-item="j">
+      <view wx:if="{{i<=j}}">
+        {{i}}*{{j}}={{i*j}}
+      </view>
+    </view>
+  </view>
+
+  <!--2、block wx:for-->
+  <block wx:for="{{[1,2,3]}}" wx:key="*this">
+    <view>{{index}}:{{item}}</view>
+  </block>
+
+  <!--3、wx:key-->
+  <switch wx:for="{{objectArray}}" wx:key="id" style="display:block;">{{item.id}}</switch>
+  <button bindtap="switch" class="btnclass">Switch</button>
+  <button bindtap="addItem" class="btnclass">addItem</button>
+  <switch type="switch" wx:for="{{array}}" wx:key="*this" style="display:block;">{{item}}</switch>
+  <button bindtap="addNumItem" class="btnclass">addNumItem</button>
+
+  <!---------------------------------------------------------模板-------------------------------------------------------------------->
+  <template name="userInfo">
+    <view>FirstName:{{firstname}} && LastName:{{lastname}}</view>
+  </template>
+  <template is="userInfo" data="{{...userInfoA}}"></template>
+
+  <!--用扩展运算符 ... 来将一个对象展开-->
+  <template name="odd">
+    <view>odd</view>
+  </template>
+  <template name="even">
+    <view>even</view>
+  </template>
+  <block wx:for="{{[1,2,3,4,5,6]}}" wx:key="*this">
+    <template is="{{ item % 2 == 0 ? 'odd' : 'even' }}" />
+  </block>
+
+  <!-----------------------------------------------------事件-------------------------------------------------------------------------->
+  <button bindtap="clickbtn" class="btnclass" id="btn_id">click me</button>
+  <view id="view1">事件分为冒泡事件和非冒泡事件：</view>
+  <view>冒泡事件：当一个组件上的事件被触发后，该事件会向父节点传递。</view>
+  <view>非冒泡事件：当一个组件上的事件被触发后，该事件不会向父节点传递。</view>
+  <view>bind事件绑定不会阻止冒泡事件向上冒泡，catch事件绑定可以阻止冒泡事件向上冒泡。</view>
+  <view data-alpha-bate="1" data-alphaBate="2" bindtap="bindView">BindView</view>
+
+  <!----------------------------------------------------------引用------------------------------------------------------------------------->
+
+  <!--import--->
+  <import src="item.wxml" />
+  <template is="ipritem" data="{{text:'import'}}" />
+
+  <!---include-->
+  <include src="item.wxml" />
+  <template is="ipritem" data="{{text:'import'}}" />
+
+  <!--循环遍历-->
+  <view wx:for="{{array}}" wx:key="*this">{{item}}</view>
 </view>
